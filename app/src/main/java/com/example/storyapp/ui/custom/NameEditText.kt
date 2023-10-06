@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.storyapp.R
 
-class PasswordEditText: AppCompatEditText, View.OnTouchListener{
+class NameEditText: AppCompatEditText, View.OnTouchListener{
 
     private lateinit var errorIconText: Drawable
 
