@@ -18,7 +18,6 @@ import com.example.storyapp.data.token.TokenViewModel
 import com.example.storyapp.data.token.TokenViewModelFactory
 import com.example.storyapp.databinding.FragmentSplashBinding
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.observeOn
 
 class SplashFragment : Fragment() {
 
