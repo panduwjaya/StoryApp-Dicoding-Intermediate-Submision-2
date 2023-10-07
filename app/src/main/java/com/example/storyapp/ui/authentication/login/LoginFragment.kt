@@ -105,6 +105,10 @@ class LoginFragment : Fragment() {
             val passwordLogin = passwordEditText.text.toString()
             postLogin(emailLogin,passwordLogin)
         }
+
+        binding.tvNoAccount.setOnClickListener {
+            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
+        }
     }
 
     private fun checkBothTextChanged() {
@@ -138,10 +142,6 @@ class LoginFragment : Fragment() {
                 is Result.Error -> {
                     binding.progressBarLogin.visibility = View.GONE
                     Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
-                }
-
-                else -> {
-                    Toast.makeText(context, "Something Error", Toast.LENGTH_LONG).show()
                 }
             }
         }
