@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.data.servicelocator.Injection
 import com.example.storyapp.data.repo.StoryRepository
+import com.example.storyapp.ui.authentication.login.LoginViewModel
+import com.example.storyapp.ui.authentication.register.RegisterViewModel
 import com.example.storyapp.ui.primary.add.AddStoryViewModel
 import com.example.storyapp.ui.primary.detail.DetailViewModel
 import com.example.storyapp.ui.primary.list.ListStoryViewModel
@@ -13,6 +15,12 @@ class PrimaryViewModelFactory private constructor(private val storyRepository: S
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
+            return RegisterViewModel(storyRepository) as T
+        }
+        if (modelClass.isAssignableFrom(LoginViewModel::class.java)){
+            return LoginViewModel(storyRepository) as T
+        }
         if (modelClass.isAssignableFrom(ListStoryViewModel::class.java)){
             return ListStoryViewModel(storyRepository) as T
         }

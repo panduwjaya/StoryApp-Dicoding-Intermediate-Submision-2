@@ -41,7 +41,7 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 8) {
-                    setError("Password tidak boleh kurang dari 8 karakter", null)
+                    setError("Tidak boleh kurang dari 8 karakter", null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)

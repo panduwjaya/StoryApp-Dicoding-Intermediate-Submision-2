@@ -28,7 +28,7 @@ class NameEditText: AppCompatEditText, View.OnTouchListener{
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Masukkan Email"
+        hint = "Masukkan Nama"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -41,8 +41,8 @@ class NameEditText: AppCompatEditText, View.OnTouchListener{
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length < 8) {
-                    setError("Password tidak boleh kurang dari 8 karakter", null)
+                if (s.toString().length < 1) {
+                    setError("Masukan Nama Anda", null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)

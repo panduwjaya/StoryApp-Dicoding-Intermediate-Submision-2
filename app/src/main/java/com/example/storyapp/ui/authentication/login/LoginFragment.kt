@@ -36,10 +36,8 @@ class LoginFragment : Fragment() {
     private var isPasswordTextChanged = false
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
-    private val pref: TokenPreference = TokenPreference.getInstance(requireContext().dataStore)
-    private val tokenViewModel: TokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
-        TokenViewModel::class.java
-    )
+    private lateinit var pref: TokenPreference
+    private lateinit var tokenViewModel: TokenViewModel
 
     private val factory: PrimaryViewModelFactory by lazy {
         PrimaryViewModelFactory.getInstance(requireActivity())
@@ -62,6 +60,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pref = TokenPreference.getInstance(requireContext().dataStore)
+        tokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
+            TokenViewModel::class.java
+        )
 
         myButtonLogin = binding.btnLogin
         emailEditText = binding.edLoginEmail
