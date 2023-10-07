@@ -21,11 +21,9 @@ import kotlinx.coroutines.delay
 
 class SplashFragment : Fragment() {
 
+    private lateinit var pref: TokenPreference
+    private lateinit var tokenViewModel: TokenViewModel
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
-    private val pref: TokenPreference = TokenPreference.getInstance(requireContext().dataStore)
-    private val tokenViewModel: TokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
-        TokenViewModel::class.java
-    )
 
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
@@ -41,14 +39,19 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pref = TokenPreference.getInstance(requireContext().dataStore)
+        tokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
+            TokenViewModel::class.java
+        )
+
         var token: String? = null
         tokenViewModel.readToken().observe(viewLifecycleOwner){result->
-            token = result
+            token = result.toString()
         }
 
         lifecycleScope.launchWhenResumed {
             delay(2000)
-            if(token == null){
+            if(token.isNullOrEmpty()){
                 findNavController().navigate(R.id.action_splashFragment_to_decisionFragment)
             }else{
                 // splash to mainActivity
@@ -56,6 +59,6 @@ class SplashFragment : Fragment() {
                 requireActivity().finish()
             }
         }
-
     }
+
 }

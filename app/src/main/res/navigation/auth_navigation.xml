@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_decisionFragment"
-            app:destination="@id/decisionFragment" />
+            app:destination="@id/decisionFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_splashFragment_to_mainActivity2"
             app:destination="@id/mainActivity" />
