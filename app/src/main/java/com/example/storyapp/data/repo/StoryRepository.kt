@@ -1,7 +1,10 @@
 package com.example.storyapp.data.repo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.example.githubusernew.data.local.StoryDao
+import com.example.githubusernew.data.local.StoryEntity
 import com.example.storyapp.data.network.ApiService
 import com.example.storyapp.data.response.detail.DetailListResponse
 import com.example.storyapp.data.response.list.StoriesListResponse
@@ -17,6 +20,7 @@ import retrofit2.HttpException
 
 class StoryRepository(
     private val apiService: ApiService,
+    private val storyDao: StoryDao,
     private val tokenPreference: TokenPreference
 ) {
     companion object {
@@ -24,10 +28,11 @@ class StoryRepository(
         private var instance: StoryRepository? = null
         fun getInstance(
             apiService: ApiService,
+            storyDao: StoryDao,
             tokenPreference: TokenPreference
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService,tokenPreference)
+                instance ?: StoryRepository(apiService, storyDao,tokenPreference)
             }.also { instance = it }
     }
 
@@ -76,7 +81,7 @@ class StoryRepository(
         }
     }
 
-    fun getStory(): LiveData<Result<StoriesListResponse>> = liveData{
+    fun getStory(): LiveData<Result<ArrayList<StoriesListResponse>>> = liveData{
         emit(Result.Loading)
         try {
             //get success message
@@ -89,6 +94,29 @@ class StoryRepository(
             val errorMessage = errorBody.message
             emit(Result.Error(errorMessage))
         }
+    }
+
+    fun getHeadlineNews(): LiveData<kotlin.Result<List<StoryEntity>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStory()
+            val articles = response.articles
+            val newsList = articles.map { article ->
+                StoryEntity(
+                    article.title,
+                    article.publishedAt,
+                    article.urlToImage,
+                    article.url
+                )
+            }
+            storyDao.deleteAll()
+            storyDao.insertStory(newsList)
+        } catch (e: Exception) {
+            Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
+            emit(Result.Error(e.message.toString()))
+        }
+        val localData: LiveData<kotlin.Result<List<NewsEntity>>> = newsDao.getNews().map {Result.Success(it) }
+        emitSource(localData)
     }
 
     fun getDetailStory(id: String): LiveData<Result<DetailListResponse>> = liveData {

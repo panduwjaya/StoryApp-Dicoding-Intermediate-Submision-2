@@ -9,7 +9,7 @@ import com.example.storyapp.data.response.list.StoriesListResponse
  * NoteDiffCallback digunakan sebagai pengganti notifyDataSetChanged
  * yang fungsinya sama-sama untuk melakukan pembaharuan item pada RecyclerView.
  */
-class StoryDiffCallback(private val oldNoteList: List<StoriesListResponse>, private val newNoteList: List<StoriesListResponse>) : DiffUtil.Callback() {
+class StoryDiffCallback(private val oldNoteList: ArrayList<StoriesListResponse>, private val newNoteList: ArrayList<StoriesListResponse>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldNoteList.size
     override fun getNewListSize(): Int = newNoteList.size
 

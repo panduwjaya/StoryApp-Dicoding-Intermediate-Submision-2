@@ -19,7 +19,7 @@ class StoryListAdapter(private val list: ArrayList<StoriesListResponse>): Recycl
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setListUser(listNotes: List<StoriesListResponse>) {
+    fun setListUser(listNotes: ArrayList<StoriesListResponse>) {
         val diffCallback = StoryDiffCallback(this.list, listNotes)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list.clear()

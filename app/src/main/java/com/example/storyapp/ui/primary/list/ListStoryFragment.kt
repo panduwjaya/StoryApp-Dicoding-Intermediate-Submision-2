@@ -3,11 +3,15 @@ package com.example.storyapp.ui.primary.list
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.data.response.list.StoriesListResponse
@@ -59,6 +63,31 @@ class ListStoryFragment : Fragment() {
                 view.findNavController().navigate(R.id.action_listStoryFragment_to_detailStoryFragment, mBundle)
             }
         })
+
+        binding.fabAddStory.setOnClickListener {
+            view.findNavController().navigate(R.id.action_listStoryFragment_to_addStoryFragment)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings_menu -> {
+                findNavController().navigate(R.id.action_listStoryFragment_to_settingsFragment)
+                true
+            }
+
+            R.id.profile_menu -> {
+                findNavController().navigate(R.id.action_listStoryFragment_to_logoutFragment)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getListStory() {
@@ -69,9 +98,8 @@ class ListStoryFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-
-//                    val token = result.data.
-//                    view?.findNavController()?.navigate(R.id.action_loginFragment_to_mainActivity2)
+                    val storyData = result.data
+                    listStoryAdapter.setListUser(storyData)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
