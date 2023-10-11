@@ -45,7 +45,7 @@ class PasswordEditText: AppCompatEditText, View.OnTouchListener{
                     setError("Password tidak boleh kurang dari 8 karakter", null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+                    error = null
                 }
             }
 

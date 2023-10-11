@@ -44,7 +44,7 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
                     setError("Tidak boleh kurang dari 8 karakter", null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+                    error = null
                 }
             }
 
