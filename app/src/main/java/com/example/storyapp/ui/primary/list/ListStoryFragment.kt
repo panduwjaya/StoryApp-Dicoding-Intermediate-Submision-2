@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernew.data.local.StoryEntity
+import com.example.storyapp.data.offline.StoryEntity
 import com.example.storyapp.R
 import com.example.storyapp.databinding.FragmentListStoryBinding
 import com.example.storyapp.ui.adapter.StoryListAdapter
@@ -95,15 +95,15 @@ class ListStoryFragment : Fragment() {
         viewModel.getListStory().observe(viewLifecycleOwner){result->
             when(result) {
                 is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     val storyData = result.data
                     listStoryAdapter.setListUser(storyData)
                 }
                 is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
                 }
             }

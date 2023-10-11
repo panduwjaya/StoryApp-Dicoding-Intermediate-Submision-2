@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_person" />
+        android:src="@drawable/ic_person" />
 
     <TextView
         android:id="@+id/tv_personal_name"
@@ -32,7 +32,7 @@
         tools:text="nama_pengguna" />
 
     <TextView
-        android:id="@+id/tv_personal_email"
+        android:id="@+id/tv_user_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -42,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_personal_name"
-        tools:text="email_pengguna" />
+        tools:text="user_id_pengguna" />
 
     <Button
         android:id="@+id/action_logout"
@@ -53,5 +53,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_personal_email" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_id" />
 </androidx.constraintlayout.widget.ConstraintLayout>

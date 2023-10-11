@@ -54,7 +54,7 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
         })
     }
 
-    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return false
     }
 }

@@ -4,7 +4,7 @@ import com.example.storyapp.data.response.detail.DetailListResponse
 import com.example.storyapp.data.response.login.LoginResponse
 import com.example.storyapp.data.response.register.RegisterResponse
 import com.example.storyapp.data.response.list.StoriesListResponse
-import com.example.storyapp.data.response.list.StoriesResponse
+import com.example.storyapp.data.response.upload.FileUploadResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
@@ -37,10 +37,10 @@ interface ApiService {
     suspend fun postStory(
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
-    ): StoriesResponse
+    ): FileUploadResponse
 
     @GET("stories")
-    suspend fun getStory(): StoriesListResponse
+    suspend fun getListStory(): StoriesListResponse
 
     @GET("stories/{id}")
     suspend fun getStoryDetail(

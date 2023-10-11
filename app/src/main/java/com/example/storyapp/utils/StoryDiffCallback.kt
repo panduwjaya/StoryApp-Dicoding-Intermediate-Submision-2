@@ -1,9 +1,7 @@
 package com.example.storyapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.githubusernew.data.local.StoryEntity
-import com.example.storyapp.data.response.list.StoriesListResponse
-import com.example.storyapp.data.response.list.StoryItem
+import com.example.storyapp.data.offline.StoryEntity
 
 /**
  * NoteDiffCallback untuk memeriksa perubahan yang ada pada listNotes

@@ -134,7 +134,9 @@ class LoginFragment : Fragment() {
                     binding.progressBarLogin.visibility = View.GONE
 
                     val token = result.data.loginResult.token
-                    tokenViewModel.saveToken(token)
+                    val name = result.data.loginResult.name
+                    val userId = result.data.loginResult.userId
+                    tokenViewModel.saveToken(token,name,userId)
                     Toast.makeText(context, "Login is success", Toast.LENGTH_LONG).show()
                     view?.findNavController()?.navigate(R.id.action_loginFragment_to_mainActivity2)
                     requireActivity().finish()

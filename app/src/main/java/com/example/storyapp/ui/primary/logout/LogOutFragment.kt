@@ -44,8 +44,13 @@ class LogOutFragment : Fragment() {
             TokenViewModel::class.java
         )
 
-        binding.tvPersonalName.text =
-        binding.tvPersonalEmail.text
+        tokenViewModel.readName().observe(viewLifecycleOwner){result ->
+            binding.tvPersonalName.text = result.toString()
+        }
+
+        tokenViewModel.readUserId().observe(viewLifecycleOwner){result ->
+            binding.tvUserId.text = result.toString()
+        }
 
         binding.actionLogout.setOnClickListener{
             tokenViewModel.removeToken()

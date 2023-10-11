@@ -1,7 +1,7 @@
 package com.example.storyapp.data.servicelocator
 
 import android.content.Context
-import com.example.githubusernew.data.local.StoryDatabase
+import com.example.storyapp.data.offline.StoryDatabase
 import com.example.storyapp.data.network.ApiConfig
 import com.example.storyapp.data.repo.StoryRepository
 import com.example.storyapp.data.token.TokenPreference

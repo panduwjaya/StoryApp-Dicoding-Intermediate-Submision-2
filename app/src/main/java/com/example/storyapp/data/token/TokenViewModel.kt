@@ -7,14 +7,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class TokenViewModel(private val tokenPref: TokenPreference): ViewModel() {
-    fun saveToken(token: String){
+    fun saveToken(token: String,name: String,userId: String){
         viewModelScope.launch {
-            tokenPref.saveToken(token)
+            tokenPref.saveToken(token,name,userId)
         }
     }
 
     fun readToken(): LiveData<String>{
         return tokenPref.readToken().asLiveData()
+    }
+
+    fun readName(): LiveData<String>{
+        return tokenPref.readName().asLiveData()
+    }
+
+    fun readUserId(): LiveData<String>{
+        return tokenPref.readUserId().asLiveData()
     }
 
     fun removeToken(){

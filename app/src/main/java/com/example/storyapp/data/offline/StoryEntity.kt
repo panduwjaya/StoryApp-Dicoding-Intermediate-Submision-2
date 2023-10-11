@@ -1,4 +1,4 @@
-package com.example.githubusernew.data.local
+package com.example.storyapp.data.offline
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

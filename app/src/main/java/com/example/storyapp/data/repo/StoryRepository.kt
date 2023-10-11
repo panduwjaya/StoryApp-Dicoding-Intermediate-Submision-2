@@ -4,12 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.example.githubusernew.data.local.StoryDao
-import com.example.githubusernew.data.local.StoryEntity
+import com.example.storyapp.data.offline.StoryDao
+import com.example.storyapp.data.offline.StoryEntity
 import com.example.storyapp.data.network.ApiService
 import com.example.storyapp.data.response.detail.DetailListResponse
-import com.example.storyapp.data.response.list.StoriesListResponse
-import com.example.storyapp.data.response.list.StoriesResponse
+import com.example.storyapp.data.response.upload.FileUploadResponse
 import com.example.storyapp.data.response.login.LoginResponse
 import com.example.storyapp.data.response.register.RegisterResponse
 import com.example.storyapp.data.token.TokenPreference
@@ -67,7 +66,7 @@ class StoryRepository(
         }
     }
 
-    fun postStory(file: MultipartBody.Part, description: RequestBody): LiveData<Result<StoriesResponse>> = liveData {
+    fun postStory(file: MultipartBody.Part, description: RequestBody): LiveData<Result<FileUploadResponse>> = liveData {
         emit(Result.Loading)
         try {
             //get success message
@@ -76,7 +75,7 @@ class StoryRepository(
         } catch (e: HttpException){
             //get error message
             val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, StoriesResponse::class.java)
+            val errorBody = Gson().fromJson(jsonInString, FileUploadResponse::class.java)
             val errorMessage = errorBody.message
             emit(Result.Error(errorMessage))
         }
@@ -97,10 +96,10 @@ class StoryRepository(
 //        }
 //    }
 
-    fun getStory(): LiveData<Result<List<StoryEntity>>> = liveData {
+    fun getListStory(): LiveData<Result<List<StoryEntity>>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getStory()
+            val response = apiService.getListStory()
             val item = response.item
             val storyList = item.map {story ->
                 StoryEntity(
@@ -116,7 +115,7 @@ class StoryRepository(
             storyDao.deleteAll()
             storyDao.insertStory(storyList)
         } catch (e: Exception) {
-            Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
+            Log.d("StoryRepository", "getListStory: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
         val localData: LiveData<Result<List<StoryEntity>>> = storyDao.getStory().map {Result.Success(it) }
@@ -132,7 +131,7 @@ class StoryRepository(
         } catch (e: HttpException){
             //get error message
             val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, StoriesResponse::class.java)
+            val errorBody = Gson().fromJson(jsonInString, FileUploadResponse::class.java)
             val errorMessage = errorBody.message
             emit(Result.Error(errorMessage))
         }

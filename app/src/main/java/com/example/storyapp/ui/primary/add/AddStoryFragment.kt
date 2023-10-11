@@ -1,6 +1,8 @@
 package com.example.storyapp.ui.primary.add
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,31 +12,31 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.storyapp.R
-import com.example.storyapp.data.network.ApiConfig
-import com.example.storyapp.data.response.upload.FileUploadResponse
 import com.example.storyapp.databinding.FragmentAddStoryBinding
-import com.example.storyapp.ui.authentication.login.LoginViewModel
 import com.example.storyapp.ui.primary.camera.CameraActivity
 import com.example.storyapp.ui.primary.camera.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.storyapp.utils.PrimaryViewModelFactory
 import com.example.storyapp.utils.Result
 import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.HttpException
 
 class AddStoryFragment : Fragment() {
+
+    companion object {
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+    }
 
     private val factory: PrimaryViewModelFactory by lazy {
         PrimaryViewModelFactory.getInstance(requireActivity())
@@ -49,6 +51,23 @@ class AddStoryFragment : Fragment() {
 
     private var currentImageUri: Uri? = null
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(requireActivity(), "Permission request granted", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireActivity(), "Permission request denied", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private fun allPermissionsGranted() =
+        ContextCompat.checkSelfPermission(
+            requireActivity(),
+            REQUIRED_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +79,10 @@ class AddStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!allPermissionsGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+        }
 
         binding.btnCamera.setOnClickListener{
             startCameraX()
