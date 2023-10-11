@@ -61,8 +61,6 @@ class AddStoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        inputDesc()
-
         binding.btnCamera.setOnClickListener{
             startCameraX()
         }
@@ -75,10 +73,6 @@ class AddStoryFragment : Fragment() {
             uploadImage()
         }
 
-    }
-
-    private fun inputDesc() {
-        binding.textInputLayout
     }
 
     private fun startCameraX(){
@@ -115,7 +109,7 @@ class AddStoryFragment : Fragment() {
             val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             // desc
-            val description = binding.textInputLayout.editText.toString()
+            val description = binding.tvInputDesc.text.toString() ?: "Nothing"
 
             val requestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -134,7 +128,7 @@ class AddStoryFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressBarAddStory.visibility = View.GONE
                             Toast.makeText(context, "Upload Success", Toast.LENGTH_LONG).show()
-                            view?.findNavController()?.navigate(R.id.action_loginFragment_to_mainActivity2)
+                            view?.findNavController()?.navigate(R.id.action_addStoryFragment_to_listStoryFragment)
                         }
                         is Result.Error -> {
                             binding.progressBarAddStory.visibility = View.GONE

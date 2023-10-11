@@ -11,20 +11,18 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.storyapp.R
 import com.example.storyapp.data.token.TokenPreference
 import com.example.storyapp.data.token.TokenViewModel
 import com.example.storyapp.data.token.TokenViewModelFactory
 import com.example.storyapp.databinding.FragmentLogoutBinding
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
-
 class LogOutFragment : Fragment() {
 
-    private val pref: TokenPreference = TokenPreference.getInstance(requireContext().dataStore)
-    private val tokenViewModel: TokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
-        TokenViewModel::class.java
-    )
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
+    private lateinit var pref: TokenPreference
+    private lateinit var tokenViewModel: TokenViewModel
 
     private var _binding: FragmentLogoutBinding? = null
     private val binding get() = _binding!!
@@ -41,12 +39,18 @@ class LogOutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvPersonalName.text
+        pref = TokenPreference.getInstance(requireContext().dataStore)
+        tokenViewModel = ViewModelProvider(requireActivity(), TokenViewModelFactory(pref)).get(
+            TokenViewModel::class.java
+        )
+
+        binding.tvPersonalName.text =
         binding.tvPersonalEmail.text
 
         binding.actionLogout.setOnClickListener{
             tokenViewModel.removeToken()
-            Navigation.createNavigateOnClickListener(R.id.action_logoutFragment_to_authenticationActivity)
+            view.findNavController().navigate(R.id.action_logoutFragment_to_authenticationActivity)
+            requireActivity().finish()
         }
     }
 }

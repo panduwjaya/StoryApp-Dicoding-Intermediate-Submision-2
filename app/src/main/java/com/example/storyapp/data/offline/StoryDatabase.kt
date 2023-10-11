@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [StoryEntity::class], version = 1, exportSchema = false)
 abstract class StoryDatabase : RoomDatabase() {
-    abstract fun favoriteDao(): StoryDao
+    abstract fun storyDao(): StoryDao
 
     companion object {
         @Volatile
@@ -18,7 +18,7 @@ abstract class StoryDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(StoryDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        StoryDatabase::class.java, "note_database")
+                        StoryDatabase::class.java, "story_database")
                         .build()
                 }
             }

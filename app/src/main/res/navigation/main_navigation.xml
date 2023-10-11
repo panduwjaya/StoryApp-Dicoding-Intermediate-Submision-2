@@ -39,7 +39,10 @@
         tools:layout="@layout/fragment_logout" >
         <action
             android:id="@+id/action_logoutFragment_to_authenticationActivity"
-            app:destination="@id/authenticationActivity" />
+            app:destination="@id/authenticationActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/logoutFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_logoutFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment" />

@@ -3,6 +3,11 @@ package com.example.storyapp.data.response.list
 import com.google.gson.annotations.SerializedName
 
 data class StoriesListResponse(
+    @field:SerializedName("item")
+    val item: List<StoryItem>
+)
+
+data class StoryItem(
     @field:SerializedName("id")
     val id: String,
     @field:SerializedName("name")

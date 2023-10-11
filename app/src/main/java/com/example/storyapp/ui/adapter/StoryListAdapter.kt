@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.example.storyapp.data.response.list.StoriesListResponse
+import com.example.githubusernew.data.local.StoryEntity
+import com.example.storyapp.data.response.list.StoryItem
 import com.example.storyapp.databinding.ItemRowLayoutBinding
 import com.example.storyapp.utils.StoryDiffCallback
 
-class StoryListAdapter(private val list: ArrayList<StoriesListResponse>): RecyclerView.Adapter<StoryListAdapter.UserViewHolder>(){
+class StoryListAdapter(private val list: ArrayList<StoryEntity>): RecyclerView.Adapter<StoryListAdapter.UserViewHolder>(){
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
@@ -19,7 +20,7 @@ class StoryListAdapter(private val list: ArrayList<StoriesListResponse>): Recycl
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setListUser(listNotes: ArrayList<StoriesListResponse>) {
+    fun setListUser(listNotes: List<StoryEntity>) {
         val diffCallback = StoryDiffCallback(this.list, listNotes)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list.clear()
@@ -28,7 +29,7 @@ class StoryListAdapter(private val list: ArrayList<StoriesListResponse>): Recycl
     }
 
     inner class UserViewHolder(val binding: ItemRowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bindData(user: StoriesListResponse) {
+        fun bindData(user: StoryEntity) {
 
             binding.root.setOnClickListener{
                 onItemClickCallback?.onItemClicked(user)
@@ -60,7 +61,7 @@ class StoryListAdapter(private val list: ArrayList<StoriesListResponse>): Recycl
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: StoriesListResponse)
+        fun onItemClicked(data: StoryEntity)
     }
 
 }

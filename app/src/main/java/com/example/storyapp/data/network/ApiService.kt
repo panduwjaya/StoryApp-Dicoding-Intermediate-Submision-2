@@ -40,7 +40,7 @@ interface ApiService {
     ): StoriesResponse
 
     @GET("stories")
-    suspend fun getStory(): ArrayList<StoriesListResponse>
+    suspend fun getStory(): StoriesListResponse
 
     @GET("stories/{id}")
     suspend fun getStoryDetail(

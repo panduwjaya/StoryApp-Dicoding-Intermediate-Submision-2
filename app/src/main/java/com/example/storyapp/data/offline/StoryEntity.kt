@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class StoryEntity(
     @PrimaryKey
     @field:ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
 
     @field:ColumnInfo(name = "name")
     val name: String? = null,
@@ -22,7 +22,7 @@ data class StoryEntity(
     @field:ColumnInfo(name = "createdAt")
     var createdAt: String? = null,
     @field:ColumnInfo(name = "lat")
-    var lat: Int? = null,
+    var lat: Double? = null,
     @field:ColumnInfo(name = "lon")
-    var lon: Int? = null
+    var lon: Double? = null
 ) : Parcelable

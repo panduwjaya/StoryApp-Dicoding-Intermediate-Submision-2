@@ -3,6 +3,7 @@ package com.example.storyapp.data.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.example.githubusernew.data.local.StoryDao
 import com.example.githubusernew.data.local.StoryEntity
 import com.example.storyapp.data.network.ApiService
@@ -81,41 +82,44 @@ class StoryRepository(
         }
     }
 
-    fun getStory(): LiveData<Result<ArrayList<StoriesListResponse>>> = liveData{
-        emit(Result.Loading)
-        try {
-            //get success message
-            val responseMessage = apiService.getStory()
-            emit(Result.Success(responseMessage))
-        } catch (e: HttpException){
-            //get error message
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, StoriesResponse::class.java)
-            val errorMessage = errorBody.message
-            emit(Result.Error(errorMessage))
-        }
-    }
+//    fun getStory(): LiveData<Result<StoriesListResponse>> = liveData{
+//        emit(Result.Loading)
+//        try {
+//            //get success message
+//            val responseMessage = apiService.getStory()
+//            emit(Result.Success(responseMessage))
+//        } catch (e: HttpException){
+//            //get error message
+//            val jsonInString = e.response()?.errorBody()?.string()
+//            val errorBody = Gson().fromJson(jsonInString, StoriesResponse::class.java)
+//            val errorMessage = errorBody.message
+//            emit(Result.Error(errorMessage))
+//        }
+//    }
 
-    fun getHeadlineNews(): LiveData<kotlin.Result<List<StoryEntity>>> = liveData {
+    fun getStory(): LiveData<Result<List<StoryEntity>>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getStory()
-            val articles = response.articles
-            val newsList = articles.map { article ->
+            val item = response.item
+            val storyList = item.map {story ->
                 StoryEntity(
-                    article.title,
-                    article.publishedAt,
-                    article.urlToImage,
-                    article.url
+                    story.id,
+                    story.name,
+                    story.description,
+                    story.photoUrl,
+                    story.createdAt,
+                    story.lat,
+                    story.lon
                 )
             }
             storyDao.deleteAll()
-            storyDao.insertStory(newsList)
+            storyDao.insertStory(storyList)
         } catch (e: Exception) {
             Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
-        val localData: LiveData<kotlin.Result<List<NewsEntity>>> = newsDao.getNews().map {Result.Success(it) }
+        val localData: LiveData<Result<List<StoryEntity>>> = storyDao.getStory().map {Result.Success(it) }
         emitSource(localData)
     }
 
