@@ -1,7 +1,7 @@
 package com.example.storyapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.storyapp.data.offline.StoryEntity
+import com.example.storyapp.data.response.list.StoryItem
 
 /**
  * NoteDiffCallback untuk memeriksa perubahan yang ada pada listNotes
@@ -9,7 +9,7 @@ import com.example.storyapp.data.offline.StoryEntity
  * NoteDiffCallback digunakan sebagai pengganti notifyDataSetChanged
  * yang fungsinya sama-sama untuk melakukan pembaharuan item pada RecyclerView.
  */
-class StoryDiffCallback(private val oldNoteList: List<StoryEntity>, private val newNoteList: List<StoryEntity>) : DiffUtil.Callback() {
+class StoryDiffCallback(private val oldNoteList: List<StoryItem>, private val newNoteList: List<StoryItem>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldNoteList.size
     override fun getNewListSize(): Int = newNoteList.size
 
@@ -20,6 +20,6 @@ class StoryDiffCallback(private val oldNoteList: List<StoryEntity>, private val 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldNote = oldNoteList[oldItemPosition]
         val newNote = newNoteList[newItemPosition]
-        return oldNote.name == newNote.name && oldNote.description == newNote.description
+        return oldNote.id == newNote.id && oldNote.name == newNote.name && oldNote.description == newNote.description && oldNote.photoUrl == newNote.photoUrl && oldNote.createdAt == newNote.createdAt
     }
 }

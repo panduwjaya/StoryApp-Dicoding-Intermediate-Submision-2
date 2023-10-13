@@ -1,7 +1,6 @@
 package com.example.storyapp.data.servicelocator
 
 import android.content.Context
-import com.example.storyapp.data.offline.StoryDatabase
 import com.example.storyapp.data.network.ApiConfig
 import com.example.storyapp.data.repo.StoryRepository
 import com.example.storyapp.data.token.TokenPreference
@@ -14,8 +13,6 @@ object Injection {
         val pref = TokenPreference.getInstance(context.dataStore)
         val user = runBlocking { pref.readToken().first() }
         val apiConfig = ApiConfig.getApiService(user)
-        val database = StoryDatabase.getDatabase(context)
-        val dao = database.storyDao()
-        return StoryRepository.getInstance(apiConfig, dao,pref)
+        return StoryRepository.getInstance(apiConfig,pref)
     }
 }

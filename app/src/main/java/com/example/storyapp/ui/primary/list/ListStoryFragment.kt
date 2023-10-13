@@ -13,8 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.storyapp.data.offline.StoryEntity
 import com.example.storyapp.R
+import com.example.storyapp.data.response.list.StoryItem
 import com.example.storyapp.databinding.FragmentListStoryBinding
 import com.example.storyapp.ui.adapter.StoryListAdapter
 import com.example.storyapp.utils.PrimaryViewModelFactory
@@ -37,7 +37,7 @@ class ListStoryFragment : Fragment() {
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
 
-    private val list = ArrayList<StoryEntity>()
+    private val list = ArrayList<StoryItem>()
     private val listStoryAdapter = StoryListAdapter(list)
 
     override fun onCreateView(
@@ -55,10 +55,11 @@ class ListStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getListStory()
         setHasOptionsMenu(true)
-        showRecycler()
+
         listStoryAdapter.setOnItemClickCallback(object : StoryListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryEntity) {
+            override fun onItemClicked(data: StoryItem) {
                 val mBundle = Bundle()
                 mBundle.putString(EXTRA_ID, data.id)
                 view.findNavController().navigate(R.id.action_listStoryFragment_to_detailStoryFragment, mBundle)
@@ -68,6 +69,8 @@ class ListStoryFragment : Fragment() {
         binding.fabAddStory.setOnClickListener {
             view.findNavController().navigate(R.id.action_listStoryFragment_to_addStoryFragment)
         }
+
+        showRecycler()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,18 +96,20 @@ class ListStoryFragment : Fragment() {
 
     private fun getListStory() {
         viewModel.getListStory().observe(viewLifecycleOwner){result->
-            when(result) {
-                is Result.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    val storyData = result.data
-                    listStoryAdapter.setListUser(storyData)
-                }
-                is Result.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
+            if (result != null) {
+                when(result) {
+                    is Result.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        val storyData = result.data.listStory
+                        listStoryAdapter.setListUser(storyData)
+                    }
+                    is Result.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

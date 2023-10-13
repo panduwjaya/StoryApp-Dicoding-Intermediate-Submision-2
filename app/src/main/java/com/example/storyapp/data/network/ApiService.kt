@@ -1,9 +1,10 @@
 package com.example.storyapp.data.network
 
 import com.example.storyapp.data.response.detail.DetailListResponse
+import com.example.storyapp.data.response.list.StoryItem
+import com.example.storyapp.data.response.list.StoryListReponses
 import com.example.storyapp.data.response.login.LoginResponse
 import com.example.storyapp.data.response.register.RegisterResponse
-import com.example.storyapp.data.response.list.StoriesListResponse
 import com.example.storyapp.data.response.upload.FileUploadResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,7 +41,7 @@ interface ApiService {
     ): FileUploadResponse
 
     @GET("stories")
-    suspend fun getListStory(): StoriesListResponse
+    suspend fun getListStory(): StoryListReponses
 
     @GET("stories/{id}")
     suspend fun getStoryDetail(

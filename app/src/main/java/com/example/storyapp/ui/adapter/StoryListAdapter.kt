@@ -7,19 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.example.storyapp.data.offline.StoryEntity
+import com.example.storyapp.data.response.list.StoryItem
 import com.example.storyapp.databinding.ItemRowLayoutBinding
 import com.example.storyapp.utils.StoryDiffCallback
 
-class StoryListAdapter(private val list: ArrayList<StoryEntity>): RecyclerView.Adapter<StoryListAdapter.UserViewHolder>(){
+class StoryListAdapter(private val list: ArrayList<StoryItem>) :
+    RecyclerView.Adapter<StoryListAdapter.UserViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setListUser(listNotes: List<StoryEntity>) {
+    fun setListUser(listNotes: List<StoryItem>) {
         val diffCallback = StoryDiffCallback(this.list, listNotes)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list.clear()
@@ -27,10 +28,11 @@ class StoryListAdapter(private val list: ArrayList<StoryEntity>): RecyclerView.A
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class UserViewHolder(val binding: ItemRowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bindData(user: StoryEntity) {
+    inner class UserViewHolder(val binding: ItemRowLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindData(user: StoryItem) {
 
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onItemClickCallback?.onItemClicked(user)
             }
 
@@ -46,8 +48,12 @@ class StoryListAdapter(private val list: ArrayList<StoryEntity>): RecyclerView.A
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryListAdapter.UserViewHolder {
-        val binding = ItemRowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): StoryListAdapter.UserViewHolder {
+        val binding =
+            ItemRowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
     }
 
@@ -59,8 +65,8 @@ class StoryListAdapter(private val list: ArrayList<StoryEntity>): RecyclerView.A
         return list.size
     }
 
-    interface OnItemClickCallback{
-        fun onItemClicked(data: StoryEntity)
+    interface OnItemClickCallback {
+        fun onItemClicked(data: StoryItem)
     }
 
 }
