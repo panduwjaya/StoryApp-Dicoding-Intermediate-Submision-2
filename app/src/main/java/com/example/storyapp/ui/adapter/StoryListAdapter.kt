@@ -2,18 +2,16 @@ package com.example.storyapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.example.storyapp.data.response.list.StoryItem
+import com.example.storyapp.data.response.list.ListStory
 import com.example.storyapp.databinding.ItemRowLayoutBinding
-import com.example.storyapp.ui.primary.main.MainActivity
 import com.example.storyapp.utils.StoryDiffCallback
 
-class StoryListAdapter(private val list: ArrayList<StoryItem>) :
+class StoryListAdapter(private val list: ArrayList<ListStory>) :
     RecyclerView.Adapter<StoryListAdapter.UserViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
@@ -22,7 +20,7 @@ class StoryListAdapter(private val list: ArrayList<StoryItem>) :
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setListUser(listNotes: List<StoryItem>) {
+    fun setListUser(listNotes: List<ListStory>) {
         val diffCallback = StoryDiffCallback(this.list, listNotes)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list.clear()
@@ -32,7 +30,7 @@ class StoryListAdapter(private val list: ArrayList<StoryItem>) :
 
     inner class UserViewHolder(val binding: ItemRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(user: StoryItem) {
+        fun bindData(user: ListStory) {
 
             binding.root.setOnClickListener {
                 onItemClickCallback?.onItemClicked(user)
@@ -68,7 +66,7 @@ class StoryListAdapter(private val list: ArrayList<StoryItem>) :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: StoryItem)
+        fun onItemClicked(data: ListStory)
     }
 
 }

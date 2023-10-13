@@ -14,7 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
-import com.example.storyapp.data.response.list.StoryItem
+import com.example.storyapp.data.response.list.ListStory
 import com.example.storyapp.databinding.FragmentListStoryBinding
 import com.example.storyapp.ui.adapter.StoryListAdapter
 import com.example.storyapp.utils.PrimaryViewModelFactory
@@ -37,7 +37,7 @@ class ListStoryFragment : Fragment() {
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
 
-    private val list = ArrayList<StoryItem>()
+    private val list = ArrayList<ListStory>()
     private val listStoryAdapter = StoryListAdapter(list)
 
     override fun onCreateView(
@@ -59,7 +59,7 @@ class ListStoryFragment : Fragment() {
         setHasOptionsMenu(true)
 
         listStoryAdapter.setOnItemClickCallback(object : StoryListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryItem) {
+            override fun onItemClicked(data: ListStory) {
                 val mBundle = Bundle()
                 mBundle.putString(EXTRA_ID, data.id)
                 view.findNavController().navigate(R.id.action_listStoryFragment_to_detailStoryFragment, mBundle)

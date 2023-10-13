@@ -8,5 +8,5 @@ class StoryListReponses(
     @SerializedName("message")
     val message: String,
     @SerializedName("listStory")
-    val listStory: List<StoryItem>
+    val listStory: List<ListStory>
 )

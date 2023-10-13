@@ -58,8 +58,10 @@ class DetailStoryFragment : Fragment() {
                         .load(result.data.photoUrl)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(binding.ivUser)
-                    binding.tvNameUser.text = result.data.name
-                    binding.tvDescriptionUser.text = result.data.description
+                    binding.tvNameUser.text = "Nama : ${result.data.name}"
+                    binding.tvIdUser.text = "Id Pengguna : ${result.data.id}"
+                    binding.tvDescriptionUser.text = "Deskripsi : ${result.data.description}" ?: "Kosong"
+                    binding.tvCreatedAt.text = "Created At : ${result.data.createdAt}"
                 }
                 is Result.Error -> {
                     binding.progressBarDetail.visibility = View.GONE

@@ -2,7 +2,7 @@ package com.example.storyapp.data.response.list
 
 import com.google.gson.annotations.SerializedName
 
-data class StoryItem(
+data class ListStory(
     @field:SerializedName("id")
     val id: String,
     @field:SerializedName("name")
