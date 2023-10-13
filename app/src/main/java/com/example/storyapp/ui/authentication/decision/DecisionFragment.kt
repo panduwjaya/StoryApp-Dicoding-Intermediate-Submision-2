@@ -1,5 +1,6 @@
 package com.example.storyapp.ui.authentication.decision
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,16 @@ class DecisionFragment : Fragment() {
         binding.btnSignupFragment.setOnClickListener{
             view.findNavController().navigate(R.id.action_decisionFragment_to_SignUpFragment)
         }
+
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.tvTitle, View.TRANSLATION_X, -30f, 50f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
 }

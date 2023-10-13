@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.authentication.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -109,6 +111,30 @@ class LoginFragment : Fragment() {
         binding.tvNoAccount.setOnClickListener {
             view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
         }
+
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        val title = ObjectAnimator.ofFloat(binding.tvTitleLogin, View.ALPHA, 1f).setDuration(100)
+        val emailEditTextLayout =
+            ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(100)
+        val passwordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(100)
+        val noAccountTextView =
+            ObjectAnimator.ofFloat(binding.tvNoAccount, View.ALPHA, 1f).setDuration(100)
+        val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(100)
+
+        AnimatorSet().apply {
+            playSequentially(
+                title,
+                emailEditTextLayout,
+                passwordEditTextLayout,
+                noAccountTextView,
+                login
+            )
+            startDelay = 100
+        }.start()
     }
 
     private fun checkBothTextChanged() {

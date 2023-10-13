@@ -12,11 +12,11 @@
         android:layout_width="126dp"
         android:layout_height="102dp"
         android:layout_marginTop="96dp"
+        android:src="@drawable/ic_person"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_person" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.storyapp.ui.custom.NameEditText
         android:id="@+id/ed_register_name"
@@ -25,11 +25,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0"
         android:hint="masukan nama"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_signup"
+        tools:alpha="100" />
 
     <com.example.storyapp.ui.custom.EmailEditText
         android:id="@+id/ed_register_email"
@@ -38,12 +40,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0"
         android:hint="masukan email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_name"
+        tools:alpha="100" />
 
     <com.example.storyapp.ui.custom.PasswordEditText
         android:id="@+id/ed_register_password"
@@ -52,35 +56,41 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0"
         android:hint="masukan password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
+        tools:alpha="100" />
 
     <TextView
         android:id="@+id/tv_title_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:alpha="0"
         android:text="SignUp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo_signup"
+        tools:alpha="100" />
 
     <com.example.storyapp.ui.custom.MyCustomButtonRegister
         android:id="@+id/btn_signup"
         android:layout_width="217dp"
         android:layout_height="46dp"
         android:layout_marginTop="40dp"
+        android:alpha="0"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_password"
+        tools:alpha="100" />
 
     <ProgressBar
         android:id="@+id/progressBarRegister"

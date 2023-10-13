@@ -12,11 +12,11 @@
         android:layout_width="126dp"
         android:layout_height="102dp"
         android:layout_marginTop="160dp"
+        android:src="@drawable/ic_person"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_person" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.storyapp.ui.custom.EmailEditText
         android:id="@+id/ed_login_email"
@@ -25,12 +25,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        tools:hint="masukan email"
+        android:alpha="0"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_login" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_login"
+        tools:alpha="100"
+        tools:hint="masukan email" />
 
     <com.example.storyapp.ui.custom.PasswordEditText
         android:id="@+id/ed_login_password"
@@ -39,12 +41,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        tools:hint="masukan password"
+        android:alpha="0"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_login_email" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_email"
+        tools:alpha="100"
+        tools:hint="masukan password" />
 
     <com.example.storyapp.ui.custom.MyCustomButtonLogin
         android:id="@+id/btn_login"
@@ -53,35 +57,41 @@
         android:layout_marginStart="97dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="97dp"
+        android:alpha="0"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_no_account"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_no_account"
+        tools:alpha="100" />
 
     <TextView
         android:id="@+id/tv_title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:alpha="0"
         android:text="Login"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo_login" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo_login"
+        tools:alpha="100" />
 
     <TextView
         android:id="@+id/tv_no_account"
         android:layout_width="126dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:text="Belum punya akun?"
         android:textColor="#3F51B5"
         app:layout_constraintEnd_toEndOf="@+id/ed_login_password"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ed_login_password"
-        app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_password"
+        tools:alpha="100" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"

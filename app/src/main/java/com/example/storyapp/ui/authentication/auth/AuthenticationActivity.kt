@@ -15,7 +15,7 @@ class AuthenticationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
-
+        supportActionBar?.hide()
         val pref = SettingPreferences.getInstance(application.dataStore)
         val darkViewModel = ViewModelProvider(this, DarkViewModelFactory(pref)).get(
             DarkViewModel::class.java

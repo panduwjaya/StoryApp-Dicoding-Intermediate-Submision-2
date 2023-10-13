@@ -45,6 +45,7 @@ class NameEditText: AppCompatEditText, View.OnTouchListener{
                     setError("Masukan Nama Anda", null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
+                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
                     error = null
                 }
             }

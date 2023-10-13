@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.authentication.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -110,10 +112,29 @@ class RegisterFragment : Fragment() {
             postRegister(nameRegister,emailRegister,passwordRegister)
         }
 
-        val nameRegister = binding.edRegisterName.text.toString()
-        val emailRegister = binding.edRegisterEmail.text.toString()
-        val passwordRegister = binding.edRegisterPassword.text.toString()
-        postRegister(nameRegister,emailRegister,passwordRegister)
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        val title = ObjectAnimator.ofFloat(binding.tvTitleSignup, View.ALPHA, 1f).setDuration(100)
+        val nameEditTextLayout =
+            ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(100)
+        val emailEditTextLayout =
+            ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(100)
+        val passwordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(100)
+        val register = ObjectAnimator.ofFloat(binding.btnSignup, View.ALPHA, 1f).setDuration(100)
+
+        AnimatorSet().apply {
+            playSequentially(
+                title,
+                nameEditTextLayout,
+                emailEditTextLayout,
+                passwordEditTextLayout,
+                register
+            )
+            startDelay = 100
+        }.start()
     }
 
     private fun checkBothTextChanged() {

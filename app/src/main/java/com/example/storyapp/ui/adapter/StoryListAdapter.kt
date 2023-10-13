@@ -2,6 +2,7 @@ package com.example.storyapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -9,6 +10,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.storyapp.data.response.list.StoryItem
 import com.example.storyapp.databinding.ItemRowLayoutBinding
+import com.example.storyapp.ui.primary.main.MainActivity
 import com.example.storyapp.utils.StoryDiffCallback
 
 class StoryListAdapter(private val list: ArrayList<StoryItem>) :
