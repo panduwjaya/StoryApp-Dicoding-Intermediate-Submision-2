@@ -8,5 +8,5 @@ data class DetailResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("story")
-    val story: List<DetailListResponse>
+    val story: DetailListResponse
 )

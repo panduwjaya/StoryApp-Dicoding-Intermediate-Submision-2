@@ -1,6 +1,7 @@
 package com.example.storyapp.data.network
 
 import com.example.storyapp.data.response.detail.DetailListResponse
+import com.example.storyapp.data.response.detail.DetailResponse
 import com.example.storyapp.data.response.list.StoryItem
 import com.example.storyapp.data.response.list.StoryListReponses
 import com.example.storyapp.data.response.login.LoginResponse

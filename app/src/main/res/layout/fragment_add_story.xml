@@ -13,7 +13,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="44dp"
-        android:text="Galery"
+        android:text="@string/galery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_preview" />
 
@@ -22,7 +22,7 @@
         android:layout_width="134dp"
         android:layout_height="52dp"
         android:layout_marginBottom="64dp"
-        android:text="Upload"
+        android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -35,7 +35,7 @@
         android:layout_width="134dp"
         android:layout_height="52dp"
         android:layout_marginTop="56dp"
-        android:text="Camera"
+        android:text="@string/camera"
         app:layout_constraintEnd_toStartOf="@+id/btn_galery"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_preview" />
@@ -47,7 +47,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:hint="Tuliskan Sesuatu"
+        android:hint="@string/tuliskan_sesuatu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_camera">

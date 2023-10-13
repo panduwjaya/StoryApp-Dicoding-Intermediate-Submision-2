@@ -38,7 +38,7 @@ class MyCustomButtonRegister: AppCompatButton {
         setTextColor(txtColor)
         textSize = 12f
         gravity = Gravity.CENTER
-        text = if(isEnabled) "Register" else "Isi Dulu"
+        text = if(isEnabled) context.getString(R.string.register) else context.getString(R.string.isi_dulu)
     }
 
     private fun init(){

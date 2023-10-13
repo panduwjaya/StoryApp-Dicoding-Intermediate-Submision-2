@@ -28,7 +28,7 @@ class NameEditText: AppCompatEditText, View.OnTouchListener{
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Masukkan Nama"
+        hint = context.getString(R.string.masukkan_nama)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -42,7 +42,7 @@ class NameEditText: AppCompatEditText, View.OnTouchListener{
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 1) {
-                    setError("Masukan Nama Anda", null)
+                    setError(context.getString(R.string.masukan_nama_anda), null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)

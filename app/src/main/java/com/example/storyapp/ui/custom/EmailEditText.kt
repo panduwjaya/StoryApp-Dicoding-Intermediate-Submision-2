@@ -27,7 +27,7 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Masukkan Email"
+        hint = context.getString(R.string.masukkan_email)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -41,7 +41,7 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 8) {
-                    setError("Tidak boleh kurang dari 8 karakter", null)
+                    setError(context.getString(R.string.tidak_boleh_kurang_dari_8_karakter), null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)

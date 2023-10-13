@@ -57,7 +57,6 @@ class DetailStoryFragment : Fragment() {
                     Glide.with(requireActivity())
                         .load(result.data.photoUrl)
                         .transition(DrawableTransitionOptions.withCrossFade())
-                        .apply(RequestOptions.circleCropTransform())
                         .into(binding.ivUser)
                     binding.tvNameUser.text = result.data.name
                     binding.tvDescriptionUser.text = result.data.description

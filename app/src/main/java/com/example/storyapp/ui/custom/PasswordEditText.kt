@@ -28,7 +28,7 @@ class PasswordEditText: AppCompatEditText, View.OnTouchListener{
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Masukkan Password"
+        hint = context.getString(R.string.masukkan_password)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -42,7 +42,7 @@ class PasswordEditText: AppCompatEditText, View.OnTouchListener{
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 8) {
-                    setError("Password tidak boleh kurang dari 8 karakter", null)
+                    setError(context.getString(R.string.tidak_boleh_kurang_dari_8_karakter), null)
                     setCompoundDrawablesWithIntrinsicBounds(null, null, errorIconText, null)
                 } else {
                     setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
