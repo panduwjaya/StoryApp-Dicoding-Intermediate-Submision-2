@@ -106,7 +106,7 @@ class StoryRepository(
     }
 
 
-    fun getDetailStory(id: String): LiveData<Result<DetailListResponse>> = liveData {
+    fun getDetailStory(id: String): LiveData<Result<DetailResponse>> = liveData {
         emit(Result.Loading)
         try {
             //get success message

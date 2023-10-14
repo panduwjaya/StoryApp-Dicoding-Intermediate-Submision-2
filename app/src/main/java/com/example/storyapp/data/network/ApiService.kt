@@ -1,6 +1,7 @@
 package com.example.storyapp.data.network
 
 import com.example.storyapp.data.response.detail.DetailListResponse
+import com.example.storyapp.data.response.detail.DetailResponse
 import com.example.storyapp.data.response.list.StoryListReponses
 import com.example.storyapp.data.response.login.LoginResponse
 import com.example.storyapp.data.response.register.RegisterResponse
@@ -45,5 +46,5 @@ interface ApiService {
     @GET("stories/{id}")
     suspend fun getStoryDetail(
         @Path("id") id: String
-    ): DetailListResponse
+    ): DetailResponse
 }

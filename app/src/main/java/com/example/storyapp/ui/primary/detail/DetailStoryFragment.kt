@@ -55,13 +55,14 @@ class DetailStoryFragment : Fragment() {
                 is Result.Success -> {
                     binding.progressBarDetail.visibility = View.GONE
                     Glide.with(requireActivity())
-                        .load(result.data.photoUrl)
+                        .load(result.data.story.photoUrl)
                         .transition(DrawableTransitionOptions.withCrossFade())
+                        .apply(RequestOptions.circleCropTransform())
                         .into(binding.ivUser)
-                    binding.tvNameUser.text = "Nama : ${result.data.name}"
-                    binding.tvIdUser.text = "Id Pengguna : ${result.data.id}"
-                    binding.tvDescriptionUser.text = "Deskripsi : ${result.data.description}" ?: "Kosong"
-                    binding.tvCreatedAt.text = "Created At : ${result.data.createdAt}"
+                    binding.tvNameUser.text = "Nama : ${result.data.story.name}"
+                    binding.tvIdUser.text = "Id Pengguna : ${result.data.story.id}"
+                    binding.tvDescriptionUser.text = "Deskripsi : ${result.data.story.description}" ?: "Kosong"
+                    binding.tvCreatedAt.text = "Created At : ${result.data.story.createdAt}"
                 }
                 is Result.Error -> {
                     binding.progressBarDetail.visibility = View.GONE
