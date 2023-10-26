@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_listStoryFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_listStoryFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
@@ -73,4 +76,9 @@
             android:id="@+id/action_settingsFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.example.storyapp.ui.primary.maps.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>

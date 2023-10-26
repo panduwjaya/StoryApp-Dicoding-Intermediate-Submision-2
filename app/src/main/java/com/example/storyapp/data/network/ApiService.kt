@@ -2,7 +2,9 @@ package com.example.storyapp.data.network
 
 import com.example.storyapp.data.response.detail.DetailListResponse
 import com.example.storyapp.data.response.detail.DetailResponse
+import com.example.storyapp.data.response.list.ListStory
 import com.example.storyapp.data.response.list.StoryListReponses
+import com.example.storyapp.data.response.location.StoryLocationResponse
 import com.example.storyapp.data.response.login.LoginResponse
 import com.example.storyapp.data.response.register.RegisterResponse
 import com.example.storyapp.data.response.upload.FileUploadResponse
@@ -15,6 +17,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -41,7 +44,15 @@ interface ApiService {
     ): FileUploadResponse
 
     @GET("stories")
-    suspend fun getListStory(): StoryListReponses
+    suspend fun getStoryPaging(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ) : StoryListReponses
+
+    @GET("stories")
+    suspend fun getStoryLocation(
+        @Query("location") location: Int,
+    ) : StoryLocationResponse
 
     @GET("stories/{id}")
     suspend fun getStoryDetail(

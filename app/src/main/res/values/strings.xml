@@ -64,4 +64,6 @@
     <string name="selamat_datang_di_aplikasi_storyapp">Selamat Datang di Aplikasi StoryApp</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="localization">Localization</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="retry">Coba lagi</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.storyapp.ui.primary.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,17 +15,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
+import com.example.storyapp.data.paging.adapter.LoadingStateAdapter
 import com.example.storyapp.data.response.list.ListStory
 import com.example.storyapp.databinding.FragmentListStoryBinding
-import com.example.storyapp.ui.adapter.StoryListAdapter
+import com.example.storyapp.ui.adapter.StoryPagingListAdapter
+import com.example.storyapp.ui.primary.detail.DetailStoryActivity
+import com.example.storyapp.ui.primary.maps.MapsActivity
 import com.example.storyapp.utils.PrimaryViewModelFactory
 import com.example.storyapp.utils.Result
 
 class ListStoryFragment : Fragment() {
-
-    companion object {
-        const val EXTRA_ID = "extra_id"
-    }
 
     private val factory: PrimaryViewModelFactory by lazy {
         PrimaryViewModelFactory.getInstance(requireActivity())
@@ -36,9 +36,6 @@ class ListStoryFragment : Fragment() {
 
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
-
-    private val list = ArrayList<ListStory>()
-    private val listStoryAdapter = StoryListAdapter(list)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,22 +52,18 @@ class ListStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getListStory()
         setHasOptionsMenu(true)
-
-        listStoryAdapter.setOnItemClickCallback(object : StoryListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ListStory) {
-                val mBundle = Bundle()
-                mBundle.putString(EXTRA_ID, data.id)
-                view.findNavController().navigate(R.id.action_listStoryFragment_to_detailStoryFragment, mBundle)
-            }
-        })
 
         binding.fabAddStory.setOnClickListener {
             view.findNavController().navigate(R.id.action_listStoryFragment_to_addStoryFragment)
         }
 
-        showRecycler()
+        binding.fabMaps.setOnClickListener {
+            val intent = Intent(requireActivity(), MapsActivity::class.java)
+            startActivity(intent)
+        }
+
+        getListStory()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,6 +73,7 @@ class ListStoryFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.settings_menu -> {
                 findNavController().navigate(R.id.action_listStoryFragment_to_settingsFragment)
                 true
@@ -95,29 +89,21 @@ class ListStoryFragment : Fragment() {
     }
 
     private fun getListStory() {
-        viewModel.getListStory().observe(viewLifecycleOwner){result->
-            if (result != null) {
-                when(result) {
-                    is Result.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
-                    }
-                    is Result.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        val storyData = result.data.listStory
-                        listStoryAdapter.setListUser(storyData)
-                    }
-                    is Result.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
+        val storyAdapter = StoryPagingListAdapter { story ->
+            val intent = Intent(activity, DetailStoryActivity::class.java)
+            intent.putExtra(DetailStoryActivity.EXTRA_ID, story)
+            startActivity(intent)
         }
-    }
-
-    private fun showRecycler() {
-        binding.rvStory.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvStory.layoutManager = LinearLayoutManager(requireContext())
         binding.rvStory.setHasFixedSize(true)
-        binding.rvStory.adapter = listStoryAdapter
+        binding.rvStory.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                storyAdapter.retry()
+            }
+        )
+        viewModel.getListStory.observe(viewLifecycleOwner) {
+            storyAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+
     }
 }

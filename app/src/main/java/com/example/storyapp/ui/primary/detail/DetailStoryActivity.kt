@@ -1,60 +1,50 @@
 package com.example.storyapp.ui.primary.detail
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.storyapp.R
-import com.example.storyapp.databinding.FragmentDetailStoryBinding
-import com.example.storyapp.ui.primary.list.ListStoryFragment
+import com.example.storyapp.data.response.list.ListStory
+import com.example.storyapp.databinding.ActivityDetailStoryBinding
 import com.example.storyapp.utils.PrimaryViewModelFactory
 import com.example.storyapp.utils.Result
 
-class DetailStoryFragment : Fragment() {
+class DetailStoryActivity : AppCompatActivity() {
 
     private val factory: PrimaryViewModelFactory by lazy {
-        PrimaryViewModelFactory.getInstance(requireActivity())
+        PrimaryViewModelFactory.getInstance(this)
     }
 
     private val viewModel: DetailViewModel by viewModels {
         factory
     }
 
-    private var _binding: FragmentDetailStoryBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityDetailStoryBinding
+    private lateinit var listStory: ListStory
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityDetailStoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailStoryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val dataId = arguments?.getString(ListStoryFragment.EXTRA_ID)
-        getDetail(dataId!!)
-
+        listStory = intent.getParcelableExtra<ListStory>(EXTRA_ID) as ListStory
+        getDetail(listStory.id)
     }
 
     private fun getDetail(dataId: String){
-        viewModel.getDetailStory(dataId).observe(viewLifecycleOwner){result->
+        viewModel.getDetailStory(dataId).observe(this){result->
             when(result) {
                 is Result.Loading -> {
                     binding.progressBarDetail.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
                     binding.progressBarDetail.visibility = View.GONE
-                    Glide.with(requireActivity())
+                    Glide.with(this)
                         .load(result.data.story.photoUrl)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(RequestOptions.circleCropTransform())
@@ -66,10 +56,14 @@ class DetailStoryFragment : Fragment() {
                 }
                 is Result.Error -> {
                     binding.progressBarDetail.visibility = View.GONE
-                    Toast.makeText(context, result.error, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, result.error, Toast.LENGTH_LONG).show()
                 }
             }
 
         }
+    }
+
+    companion object {
+        const val EXTRA_ID = "extra_id"
     }
 }

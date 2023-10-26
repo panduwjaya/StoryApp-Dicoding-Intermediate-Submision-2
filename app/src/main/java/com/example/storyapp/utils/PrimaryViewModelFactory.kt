@@ -10,6 +10,7 @@ import com.example.storyapp.ui.authentication.register.RegisterViewModel
 import com.example.storyapp.ui.primary.add.AddStoryViewModel
 import com.example.storyapp.ui.primary.detail.DetailViewModel
 import com.example.storyapp.ui.primary.list.ListStoryViewModel
+import com.example.storyapp.ui.primary.maps.StoryLocationViewModel
 
 class PrimaryViewModelFactory private constructor(private val storyRepository: StoryRepository):
     ViewModelProvider.NewInstanceFactory() {
@@ -29,6 +30,9 @@ class PrimaryViewModelFactory private constructor(private val storyRepository: S
         }
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)){
             return DetailViewModel(storyRepository) as T
+        }
+        if (modelClass.isAssignableFrom(StoryLocationViewModel::class.java)){
+            return StoryLocationViewModel(storyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
