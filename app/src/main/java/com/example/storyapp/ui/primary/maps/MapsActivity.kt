@@ -123,19 +123,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 is Result.Success -> {
                     val dataLocation = result.data.listStory
-                    addManyMarker(dataLocation)
+                    dataLocation.forEach { tourism ->
+                        val latLng = LatLng(tourism.lat, tourism.lon)
+                        mMap.addMarker(MarkerOptions().position(latLng).title(tourism.name))
+                        boundsBuilder.include(latLng)
+                    }
+
+                    val bounds: LatLngBounds = boundsBuilder.build()
+
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLngBounds(
+                            bounds,
+                            resources.displayMetrics.widthPixels,
+                            resources.displayMetrics.heightPixels,
+                            30
+                        )
+                    )
                 }
                 is Result.Error -> {
                     Toast.makeText(this, result.error, Toast.LENGTH_LONG).show()
                 }
             }
-        }
-    }
-
-    private fun addManyMarker(dataLocation: List<ListStoryLocation>) {
-        dataLocation.forEach { tourism ->
-            val latLng = LatLng(tourism.lat, tourism.lon)
-            mMap.addMarker(MarkerOptions().position(latLng).title(tourism.name))
         }
     }
 }
