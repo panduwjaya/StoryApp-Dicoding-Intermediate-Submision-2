@@ -12,13 +12,12 @@ import com.example.storyapp.data.repo.StoryRepository
 import com.example.storyapp.data.response.list.ListStory
 import com.example.storyapp.ui.adapter.StoryPagingListAdapter
 import com.example.storyapp.utils.DataDummy
-import com.example.storyapp.utils.MainDispatcherRule
 import com.example.storyapp.utils.getOrAwaitValue
+import com.example.storyapp.utils.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,15 +36,15 @@ class ListStoryViewModelTest{
     private lateinit var storyRepository: StoryRepository
 
     @Test
-    fun `when Get Quote Should Not Null and Return Data`() = runTest {
+    fun `when Get Story Should Not Null and Return Data`() = runTest {
         val dummyStory = DataDummy.generateDummyStoryResponse()
         val data: PagingData<ListStory> = StoryPagingSource.snapshot(dummyStory)
         val expectedQuote = MutableLiveData<PagingData<ListStory>>()
         expectedQuote.value = data
         Mockito.`when`(storyRepository.getListStory()).thenReturn(expectedQuote)
 
-        val ListStoryViewModel = ListStoryViewModel(storyRepository)
-        val actualQuote: PagingData<ListStory> = ListStoryViewModel.getListStory.getOrAwaitValue()
+        val listStoryViewModel = ListStoryViewModel(storyRepository)
+        val actualQuote: PagingData<ListStory> = listStoryViewModel.getListStory.getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryPagingListAdapter.DIFF_CALLBACK,
@@ -60,19 +59,20 @@ class ListStoryViewModelTest{
     }
 
     @Test
-    fun `when Get Quote Empty Should Return No Data`() = runTest {
+    fun `when Get Story Empty Should Return No Data`() = runTest {
         val data: PagingData<ListStory> = PagingData.from(emptyList())
         val expectedQuote = MutableLiveData<PagingData<ListStory>>()
         expectedQuote.value = data
         Mockito.`when`(storyRepository.getListStory()).thenReturn(expectedQuote)
-        val ListStoryViewModel = ListStoryViewModel(storyRepository)
-        val actualQuote: PagingData<ListStory> = ListStoryViewModel.getListStory.getOrAwaitValue()
+        val listStoryViewModel = ListStoryViewModel(storyRepository)
+        val actualQuote: PagingData<ListStory> = listStoryViewModel.getListStory.getOrAwaitValue()
+
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryPagingListAdapter.DIFF_CALLBACK,
             updateCallback = noopListUpdateCallback,
             workerDispatcher = Dispatchers.Main,
         )
-        differ.submitData(actualQuote)
+         differ.submitData(actualQuote)
         Assert.assertEquals(0, differ.snapshot().size)
     }
 }
