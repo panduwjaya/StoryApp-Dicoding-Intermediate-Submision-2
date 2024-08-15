@@ -14,8 +14,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.storyapp.R
-import com.example.storyapp.databinding.FragmentListStoryBinding
 import com.example.storyapp.databinding.FragmentSettingsBinding
 import com.example.storyapp.ui.primary.dark.DarkViewModel
 import com.example.storyapp.ui.primary.dark.DarkViewModelFactory
